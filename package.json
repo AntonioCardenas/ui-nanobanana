@@ -1,0 +1,37 @@
+{
+  "name": "ui-nanobanana",
+  "version": "1.1.0",
+  "description": "The ultimate anti-slop UI & frontend art-direction skill powered by high-resolution Google Gemini media & reasoning models (Nano Banana 2.1, Nano Banana Pro, Nano Banana 2 Lite, Gemini Omni 1.2 Flash, Gemini 4 Carbon, Gemini 4 Argon, Gemini 4 Neon, Gemini 4 Hydrogen), combining Taste Skill art direction and Impeccable deterministic DESIGN.md guardrails.",
+  "main": "SKILL.md",
+  "keywords": [
+    "agent-skill",
+    "skills",
+    "frontend-design",
+    "ui-design",
+    "taste-skill",
+    "impeccable",
+    "nano-banana",
+    "nano-banana-2.1",
+    "nano-banana-pro",
+    "gemini-omni",
+    "gemini-4-carbon",
+    "gemini-4-argon",
+    "gemini-4-neon",
+    "gemini-4-hydrogen",
+    "angular",
+    "react",
+    "claude-code",
+    "antigravity",
+    "cursor"
+  ],
+  "author": "Antonio Cardenas",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AntonioCardenas/ui-nanobanana.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AntonioCardenas/ui-nanobanana/issues"
+  },
+  "homepage": "https://github.com/AntonioCardenas/ui-nanobanana#readme"
+}
