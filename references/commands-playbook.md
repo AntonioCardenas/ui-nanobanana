@@ -31,15 +31,34 @@ Inspired by **Impeccable**'s shared design vocabulary and **Taste Skill**'s brow
 ### `/ui visual-plan [target]`
 **Goal:** Upgrade an existing text-heavy, placeholder-ridden, or stock-photo UI with a cohesive suite of 2K/4K Nano Banana visuals.
 1. Read `DESIGN.md` and `generations/refs/brand/style.md` (creating `style.md` from the CSS tokens if missing).
-2. Audit every section of `target` to identify missing, broken, or weak visual slots (checking against the 4–8 real-image floor for `Persuade` surfaces).
-3. Present the **Batch Media Plan Table** (specifying model IDs, `2K`/`4K` sizes, aspect ratios including panoramic `21:9` or `4:1`, negative-space safe zones for text overlays, and total USD quote).
-4. Upon approval, generate Slot 1 (Hero) first, lock Slots 2..N to Slot 1 via `reference_images` or `previous_interaction_id`, write `.json` sidecars, and update the component markup with `width`, `height`, `fetchpriority`, and tonal scrims.
+2. Audit every section of `target` to identify missing, broken, or weak visual slots (checking against the 4–8 real-image floor for `Persuade` surfaces). If any visual dimension is ambiguous, ask at most 2–3 targeted questions (see [`references/prompt-engineering.md`](prompt-engineering.md)).
+3. Run the **offline $0 request-shape check** (`validate_interaction_request`) and present the **Batch Media Plan Table + `PROMPT` & `WHY THESE CHOICES` rationale** (specifying model IDs, `2K`/`4K` sizes, route-valid aspect ratios including panoramic `21:9` or `4:1` on Nano Banana 2.1, negative-space safe zones, and total USD quote).
+4. Upon approval, generate Slot 1 (Hero) first, lock Slots 2..N to Slot 1 by passing Slot 1 as a MIME-verified `{"type": "image", ...}` part inside `input=[...]` (or chaining via `previous_interaction_id`), write `.json` sidecars, and update the component markup with `width`, `height`, `fetchpriority`, and tonal scrims.
+
+### `/ui prompt [slot-or-idea]`
+**Goal:** Zero-cost (`$0.00`) Studio Prompt Architect.
+1. Check the 9 Vision Dimensions in [`references/prompt-engineering.md`](prompt-engineering.md); ask at most 2–3 questions if the idea is underspecified.
+2. Rewrite any keyword tag-soup into a natural-language creative brief with tactile materiality, lens/lighting geometry, negative-space safe zones, and surface purpose context.
+3. Output the structured `PROMPT` + `WHY THESE CHOICES` block and offer iterative refinement (or paid execution if requested).
+
+### `/ui wireframe-to-comp <sketch_or_plan_path>`
+**Goal:** Dimensional translation (`2D <-> 3D`) and structural layout control from a wireframe, Excalidraw diagram, or 2D floor plan.
+1. Detect the file's real MIME type (`detect_image_mime`) and verify the target route (`gemini-nano-banana-2.1` or `gemini-3-pro-image`).
+2. Quote the run with `PROMPT` + `WHY THESE CHOICES` rationale and wait for approval.
+3. Pass the sketch/wireframe as an `{"type": "image", ...}` block inside `input=[...]` with natural-language instructions locking spatial hierarchy (or translating a 2D plan/sketch into a 3D studio/interior render) without rendering wireframe lines in the final plate.
+4. Build the corresponding responsive HTML/CSS/framework component around the generated asset.
+
+### `/ui localize-assets <target_language> [files...]`
+**Goal:** Translate rendered `"quoted"` typography inside existing UI banners or posters while keeping layout and lighting identical.
+1. Read each target image's `.json` sidecar (if present), quote the batch or single call on `gemini-nano-banana-2.1` or `gemini-3-pro-image`, and wait for approval.
+2. Chain via `previous_interaction_id` (or pass the source image as a MIME-verified `{"type": "image", ...}` block inside `input=[...]`) prompting: `"Translate all visible text in this image into <target_language>, preserving the exact font style, layout, material reflections, and lighting."`
+3. Save localized files, write sidecars, and wire `srcset` / i18n asset paths.
 
 ### `/ui edit-asset <file-or-slot> "<delta instruction>"`
 **Goal:** Modify or upscale an existing generated UI image without losing its composition.
-1. Read the asset's `<basename>.json` sidecar to retrieve the exact `model`, `prompt`, `reference_images`, `params`, and `response_id`.
-2. Quote the single rerun cost (`~$0.05` for Nano Banana 2.1 `2K`, `~$0.113` for `4K`, `~$0.134–$0.24` for Pro) and wait for approval.
-3. Call `client.interactions.create` using `previous_interaction_id=sidecar["response_id"]` (for a stateful server-side edit) or pass the existing image file in `reference_images` while modifying only the delta words in the prompt.
+1. Read the asset's `<basename>.json` sidecar to retrieve the exact `model`, `prompt`, logged `reference_images` paths, `params`, and `response_id`.
+2. Quote the single rerun cost (`~$0.05` for Nano Banana 2.1 `2K`, `~$0.113` for `4K`, `~$0.134–$0.24` for Pro) alongside the delta `PROMPT` + `WHY THESE CHOICES`, and wait for approval.
+3. Call `client.interactions.create` using `previous_interaction_id=sidecar["response_id"]` (for a physics-aware conversational edit) or encode the existing image file as a MIME-verified `{"type": "image", ...}` block inside `input=[...]` while modifying only the delta words in the prompt.
 4. Save, verify, update the sidecar, and verify the crop in the UI.
 
 ---

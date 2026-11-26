@@ -11,7 +11,7 @@ description: >-
   prompts, zero-cut Omni 1.2 video loops, and Carbon/Argon/Neon/Hydrogen SVG/Three.js/Shaders). Use
   whenever building, redesigning, auditing, or polishing websites, landing pages, dashboards, or web apps
   in any stack (Angular, React, Next.js, Astro, Vue, Svelte, HTML/CSS, Tailwind, GSAP, Lenis).
-version: 1.1.0
+version: 1.2.0
 license: MIT
 ---
 
@@ -74,23 +74,24 @@ Select a cohesive combination from [`references/art-direction-and-copy.md`](refe
 - **The Competitor Test:** Swap a direct competitor's name into that sentence. If it still holds true, your idea is a category cliché — throw it out and pick a sharper item from the inventory.
 - **One Live Thing:** Design **one interactive, functional element** built into the page (usually in the Hero or Proof section) that lets the visitor manipulate real domain parameters (e.g., material/finish switcher using Series-Locked Nano Banana plates, interactive signal/latency scrubber, live batch calculator, interactive architectural spec explorer). Must work with a thumb at `390px`, via keyboard (`Tab`/`Enter`/arrows), and render a sensible initial state without waiting for user input.
 
-### 5. Upfront Batch Media Plan & Single Cost-Approval Gate
-Pages win or lose on visual substance. Before calling any paid Gemini endpoint, assemble the **Batch Media Plan** (see [`references/nanobanana-visual-pipeline.md`](references/nanobanana-visual-pipeline.md)):
-1. Check `generations/refs/` and `generations/refs/sets.json` for real brand logos, product photos, or character references. **Never approximate an existing logo or face in text.**
-2. Design the complete visual suite for the surface (typically 4–8 high-res images for a landing page, plus optional video loop and vector/shader code visuals):
+### 5. Upfront Batch Media Plan, Prompt Rationale & Single Cost-Approval Gate
+Pages win or lose on visual substance. Before calling any paid Gemini endpoint, assemble the **Batch Media Plan** (see [`references/nanobanana-visual-pipeline.md`](references/nanobanana-visual-pipeline.md) and [`references/prompt-engineering.md`](references/prompt-engineering.md)):
+1. **Adaptive Gap Check (Max 2–3 Questions):** If the visual vision has critical gaps across the 9 Vision Dimensions (subject, setting, mood, style, framing, lighting, purpose, quoted text, or aspect ratio) that cannot be inferred from `DESIGN.md`, ask at most 2–3 targeted questions first.
+2. Check `generations/refs/` and `generations/refs/sets.json` for real brand logos, product photos, character references, or structural layout wireframes/2D sketches. **Never approximate an existing logo or face in text.**
+3. Design the complete visual suite for the surface (typically 4–8 high-res images for a landing page, plus optional video loop and vector/shader code visuals), rewriting any keyword tag-soup into full natural-language creative briefs with tactile materiality and purpose context:
    - **Slot 1 (Anchor Hero):** Nano Banana 2.1 (`gemini-nano-banana-2.1`) or Nano Banana Pro (`gemini-3-pro-image`) at `2K` or `4K`, aspect ratio matched to the Hero blueprint (`16:9`, `21:9`, `4:3`, or `3:4`).
-   - **Slots 2..N (Section Plates / Crops / Textures / Panoramic Dividers):** Nano Banana 2.1 (`2K`/`4K`, including panoramic `21:9`, `4:1`, `8:1` where appropriate) or Pro (`2K` costs the same 1,120 image tokens as `1K` on Pro — always prefer `2K` over `1K` on Pro!).
-   - **Optional Ambient Motion Loop:** Gemini Omni 1.1 Flash (`gemini-omni-1.1-flash`, 5s at `720p` or `1080p`, using Slot 1's generated Hero image as `<FIRST_FRAME>` so the `<video poster>` and first frame match to the pixel).
-   - **Optional Code Visuals:** Gemini 4 Argon (`gemini-4-argon`) for intricate SVG schematics, interactive Three.js scenes, or custom GLSL shaders.
-3. **Present the Batch Media Plan Table** to the user (listing each slot, model ID, resolution, aspect ratio, brief summary, and itemized + total estimated USD cost) and **wait for one explicit user go-ahead** covering the batch.
+   - **Slots 2..N (Section Plates / Crops / 2D-to-3D Renders / Panoramic Dividers):** Nano Banana 2.1 (`2K`/`4K`, including panoramic `21:9`, `4:1`, `8:1` where appropriate) or Pro (`2K` costs the same 1,120 image tokens as `1K` on Pro — always prefer `2K` over `1K` on Pro!).
+   - **Optional Ambient Motion Loop:** Gemini Omni 1.2 Flash (`gemini-omni-1.2-flash`, 5s at `720p` or `1080p`, passing Slot 1's generated Hero image in `input` as the natural-language starting frame so `<video poster>` and Frame 0 match to the pixel).
+   - **Optional Code Visuals:** Gemini 4 Hydrogen / Neon / Argon / Carbon (`gemini-4-*`) for intricate SVG schematics, interactive Three.js scenes, or custom GLSL shaders.
+4. Run the **offline $0 request-shape check** (`validate_interaction_request` in [`references/prompt-engineering.md`](references/prompt-engineering.md)), then **present the Batch Media Plan Table + `PROMPT` & `WHY THESE CHOICES` rationale** to the user and **wait for one explicit user go-ahead** covering the batch.
 
 ### 6. Sequential High-Res Generation with Hero-First Series Lock
 Once the user approves the batch:
 1. Ensure `generations/refs/brand/style.md` contains the fixed verbatim style block (palette hex codes, lighting direction, camera/lens stock, surface texture, and `anti_references` from `DESIGN.md`). Prepend `style.md` **verbatim** to every image prompt.
-2. **Write Photographer's Brief prompts** (Subject + Camera/Focal Length + Lighting Setup + Materiality + Negative-Space Safe Zone for UI text overlay + `"no text, no typography, no watermarks, no UI frames, no hands"`).
+2. **Write Natural-Language Photographer's Brief prompts** (Subject with tactile materiality + Camera/Focal Length + Lighting Setup + Negative-Space Safe Zone for UI text overlay + Purpose Context + `"quoted text"` if any + hard exclusions). Never send comma-separated tag soup.
 3. **Generate Slot 1 (Hero) first.** Save to the target asset folder (e.g., `public/images/` or `generations/`), verify the file is on disk and non-empty, and write its `.json` sidecar with `response_id`.
-4. **Lock the Series:** Pass the generated Slot 1 Hero image file in `reference_images` (alongside any brand refs) — or chain via `previous_interaction_id` for state-locked variations — for **Slots 2..N**, running **one generation at a time sequentially**. Every section visual now inherits the Hero's exact lighting, color grade, and physical atmosphere.
-5. If the plan includes a **Gemini Omni 1.1 Flash** video loop, pass the approved Hero still as the starting frame (`<FIRST_FRAME>`) so the muted background loop transitions seamlessly from its poster image.
+4. **Lock the Series:** Encode the generated Slot 1 Hero image file (with detected MIME type) as an `{"type": "image", ...}` block inside `input=[...]` (alongside any brand refs or structural layout wireframes) — or chain via `previous_interaction_id` for physics-aware conversational variations — for **Slots 2..N**, running **one generation at a time sequentially**. Every section visual now inherits the Hero's exact lighting, color grade, and physical atmosphere.
+5. If the plan includes a **Gemini Omni 1.2 Flash** video loop, pass the approved Hero still in `input` (`"Use this image as the starting frame..."`) so the muted background loop transitions seamlessly from its poster image.
 
 ### 7. Build the Interface, Still First
 Build the full markup and styles with animations mentally switched off — a page that needs motion to look designed is underbuilt:
@@ -134,8 +135,11 @@ You can invoke this skill for a full build or use its targeted Impeccable-style 
 | `/ui init` | Contract | Interviews or scans the project to create `PRODUCT.md`, `DESIGN.md`, and `generations/refs/brand/style.md`. |
 | `/ui document` | Contract | Reverse-engineers an existing codebase's tokens, typography, and rules into `DESIGN.md` and `style.md`. |
 | `/ui craft [target]` | Build | Runs the full 10-Step Master Run (Art Direction + Batch Nano Banana 2K/4K Media Plan + Build + Audit). |
-| `/ui visual-plan [target]` | Media OP | Audits a page's empty/weak visual slots, proposes a cohesive Batch Media Plan (2K/4K plates, panoramic dividers, Omni video loop), quotes once, and generates with Series Lock. |
-| `/ui edit-asset <file>` | Media OP | Reads the `.json` sidecar of an existing generated asset and runs a stateful delta edit via `previous_interaction_id` or promotes a 1K draft to 2K/4K on Nano Banana 2.1 / Pro. |
+| `/ui visual-plan [target]` | Media OP | Audits a page's empty/weak visual slots, proposes a cohesive Batch Media Plan + `WHY THESE CHOICES` rationale, quotes once, and generates with Series Lock. |
+| `/ui prompt [idea]` | Media OP | Zero-cost Prompt Architect: crafts an optimized natural-language Nano Banana / Omni Flash prompt with `WHY THESE CHOICES` rationale ($0.00 API cost) and iterative refinement. |
+| `/ui wireframe-to-comp <sketch>` | Media OP | Dimensional & Structural Control: converts a hand-drawn layout sketch, 2D floor plan, or low-fi wireframe passed in `input` into a 2K/4K visual comp or 3D studio render, then builds the clean frontend code. |
+| `/ui localize-assets <lang>` | Media OP | Visual Localization: translates in-image `"quoted"` typography across existing graphics into `<lang>` while preserving layout, font style, and scene lighting. |
+| `/ui edit-asset <file>` | Media OP | Reads the `.json` sidecar of an existing generated asset and runs a physics-aware delta edit via `previous_interaction_id` or promotes a 1K draft to 2K/4K on Nano Banana 2.1 / Pro. |
 | `/ui audit [target]` | Evaluate | Runs the 58 deterministic anti-slop rules + contrast, 2-line headline, frame, and asset integrity checks without editing code. |
 | `/ui critique [target]` | Evaluate | Scores the interface against the 14-pass Awwwards & UX rubric and names the top 3 highest-leverage fixes. |
 | `/ui normalize [target]` | Refine | Aligns drifted spacing, border-radii, font sizes, colors, and image treatments back to `DESIGN.md`. |
@@ -174,8 +178,8 @@ Always read the corresponding recipe in [`models/`](models/) before executing an
 ## Non-Negotiable House Rules
 
 1. **Batch Cost Gate Before Paid Generation:** Present the complete **Batch Media Plan Table** (or single-call quote for one-off asset edits) with model IDs, resolutions, and expected USD total, and wait for explicit user approval before running paid API calls. Run approved generations **sequentially one at a time**, never in an unmonitored parallel flood.
-2. **Real Brand Assets In, Cohesive Pixels Out:** Never describe an existing brand logo, founder face, or real product screenshot in words when a file exists in `generations/refs/` or the repo — pass the real image in `reference_images`.
-3. **Hero-First Series Lock:** Never generate 6 independent section images with 6 unanchored prompts. Generate the Hero first, verify it, and pass the Hero image as a reference (plus `generations/refs/brand/style.md` verbatim) into every subsequent section image call so lighting, lens character, and color grading stay locked across the entire scroll.
+2. **Real Brand Assets In, Cohesive Pixels Out:** Never describe an existing brand logo, founder face, or real product screenshot in words when a file exists in `generations/refs/` or the repo — pass the real image as an `{"type": "image", ...}` block inside `input=[...]` with verified MIME type.
+3. **Hero-First Series Lock:** Never generate 6 independent section images with 6 unanchored prompts. Generate the Hero first, verify it, and pass the Hero image inside `input=[...]` (plus `generations/refs/brand/style.md` verbatim) into every subsequent section image call so lighting, lens character, and color grading stay locked across the entire scroll.
 4. **Save, Verify, Sidecar Log, Wire Into DOM:** Every generated file must be verified on disk and non-empty (`stat().st_size > 0`) before writing its matching `.json` sidecar (logging exact `model`, `prompt`, `reference_images`, `response_id`, `params`, `cost`, `created`, `approved_by_user`). Every generated UI image must be wired into the component/HTML with proper `alt`, `width`, `height`, and loading attributes.
 5. **Zero AI Slop:** Enforce all 58 deterministic rules in [`references/anti-slop-58-rules.md`](references/anti-slop-58-rules.md). Removal of tells is only half the job — always replace removed ornaments with large, confident typography, real 2K/4K Series-Locked visuals, full section copy, and **One Live Thing**.
 
@@ -188,6 +192,7 @@ Always read the corresponding recipe in [`models/`](models/) before executing an
 | [`references/design-contract.md`](references/design-contract.md) | Creating or reading `DESIGN.md`, `PRODUCT.md`, and `generations/refs/brand/style.md`; stack integration (Angular Signals/zoneless, React, Astro, Tailwind, GSAP). |
 | [`references/art-direction-and-copy.md`](references/art-direction-and-copy.md) | Step 1–4: Subject Inventory, Competitor Test, One Live Thing, Two-Line Headline Arithmetic, Combinatorial Direction Matrix, and Operate/App-Screen rules. |
 | [`references/nanobanana-visual-pipeline.md`](references/nanobanana-visual-pipeline.md) | Step 5–6: Batch Media Plan table, Photographer's Brief prompt formula, Negative-Space Safe Zones, Hero-First Series Lock, Panoramic ratios, Omni Flash video loops, Argon shaders/SVGs. |
+| [`references/prompt-engineering.md`](references/prompt-engineering.md) | Prompt Craft: 4 Golden Rules (anti-tag-soup, materiality, purpose context, conversational edits), 9-dimension gap check, `WHY THESE CHOICES` rationale, 2D-to-3D, localization, wireframe control & $0 request validator. |
 | [`references/anti-slop-58-rules.md`](references/anti-slop-58-rules.md) | Step 7 & 9: The 58 deterministic anti-slop rules (`SLOP-01` to `SLOP-58`), Craft Floor verification, and exact code remediations. |
 | [`references/commands-playbook.md`](references/commands-playbook.md) | Running any `/ui <sub-command>` (`audit`, `normalize`, `polish`, `typeset`, `colorize`, `layout`, `animate`, `bolder`, `quieter`, `distill`, `harden`, `overdrive`, `visual-plan`). |
 | [`models/nano-banana-2.md`](models/nano-banana-2.md) | Calling Nano Banana 2.1 (`gemini-nano-banana-2.1`) for 1K/2K/4K & panoramic UI imagery. |

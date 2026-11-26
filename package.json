@@ -1,7 +1,7 @@
 {
   "name": "ui-nanobanana",
-  "version": "1.1.0",
-  "description": "The ultimate anti-slop UI & frontend art-direction skill powered by high-resolution Google Gemini media & reasoning models (Nano Banana 2.1, Nano Banana Pro, Nano Banana 2 Lite, Gemini Omni 1.2 Flash, Gemini 4 Carbon, Gemini 4 Argon, Gemini 4 Neon, Gemini 4 Hydrogen), combining Taste Skill art direction and Impeccable deterministic DESIGN.md guardrails.",
+  "version": "1.2.0",
+  "description": "The ultimate anti-slop UI, frontend art-direction & prompt-architect skill powered by high-resolution Google Gemini media & reasoning models (Nano Banana 2.1, Nano Banana Pro, Nano Banana 2 Lite, Gemini Omni 1.2 Flash, Gemini 4 Carbon, Gemini 4 Argon, Gemini 4 Neon, Gemini 4 Hydrogen).",
   "main": "SKILL.md",
   "keywords": [
     "agent-skill",
@@ -10,6 +10,7 @@
     "ui-design",
     "taste-skill",
     "impeccable",
+    "prompt-engineering",
     "nano-banana",
     "nano-banana-2.1",
     "nano-banana-pro",

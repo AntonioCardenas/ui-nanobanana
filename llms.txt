@@ -1,0 +1,26 @@
+# ui-nanobanana — Anti-Slop UI & Frontend Design Skill with 4K Nano Banana & Gemini 4
+
+> Open-source AI frontend design and art-direction skill (`/ui`) for Claude Code, Cursor, Antigravity, Codex, and OpenCode. Eliminates generic "AI slop" interfaces by combining deterministic `DESIGN.md` / `PRODUCT.md` brand guardrails, 58 anti-slop rules, two-line headline arithmetic, interactive "One Live Thing" proof, and a Hero-First Series-Locked 2K/4K visual pipeline powered by Google Gemini Nano Banana 2.1, Nano Banana Pro, Gemini Omni 1.2 Flash, and Gemini 4 (Carbon, Argon, Neon, Hydrogen).
+
+- Repository: https://github.com/AntonioCardenas/ui-nanobanana
+- Companion Media Generation Skill: https://github.com/AntonioCardenas/generate-nanobanana
+- Install via Skills CLI: `npx skills add AntonioCardenas/ui-nanobanana`
+- Author: Antonio Cárdenas (Google Developer Expert)
+- License: MIT
+
+## Core Capabilities & Sub-Commands
+
+- **Contract & Discovery**: `/ui init`, `/ui document` — Compiles `PRODUCT.md`, `DESIGN.md`, and `generations/refs/brand/style.md`.
+- **End-to-End Art-Directed Build**: `/ui craft` — 10-step workflow across `Persuade`, `Operate`, `Read`, and `Experience` modes (Angular Zoneless + Signals, React/Next.js, Astro, Vue, Svelte, Tailwind, GSAP, Lenis).
+- **2K/4K Nano Banana Media OP**: `/ui visual-plan`, `/ui prompt` ($0 cost prompt architect), `/ui wireframe-to-comp` (2D sketch/wireframe to 2K/4K comp or 3D render), `/ui localize-assets`, `/ui edit-asset`.
+- **58-Rule Deterministic Audit & Refinement**: `/ui audit`, `/ui critique`, `/ui normalize`, `/ui polish`, `/ui typeset`, `/ui colorize`, `/ui layout`, `/ui animate`, `/ui bolder`, `/ui quieter`, `/ui distill`, `/ui harden`, `/ui overdrive`.
+
+## Canonical Documentation
+
+- [Main Skill Specification (SKILL.md)](https://raw.githubusercontent.com/AntonioCardenas/ui-nanobanana/main/SKILL.md)
+- [Deterministic Design Contract (DESIGN.md & PRODUCT.md)](https://raw.githubusercontent.com/AntonioCardenas/ui-nanobanana/main/references/design-contract.md)
+- [Art Direction, Copy Arithmetic & Composition Matrix](https://raw.githubusercontent.com/AntonioCardenas/ui-nanobanana/main/references/art-direction-and-copy.md)
+- [High-Resolution 2K/4K Nano Banana Visual Pipeline](https://raw.githubusercontent.com/AntonioCardenas/ui-nanobanana/main/references/nanobanana-visual-pipeline.md)
+- [Studio Prompt Architecture & $0 Offline Validator](https://raw.githubusercontent.com/AntonioCardenas/ui-nanobanana/main/references/prompt-engineering.md)
+- [58 Deterministic Anti-Slop Rules](https://raw.githubusercontent.com/AntonioCardenas/ui-nanobanana/main/references/anti-slop-58-rules.md)
+- [Sub-Commands Playbook](https://raw.githubusercontent.com/AntonioCardenas/ui-nanobanana/main/references/commands-playbook.md)

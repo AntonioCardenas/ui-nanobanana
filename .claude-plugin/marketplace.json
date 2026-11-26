@@ -1,0 +1,37 @@
+{
+  "name": "ui-nanobanana",
+  "owner": {
+    "name": "Antonio Cardenas",
+    "url": "https://github.com/AntonioCardenas"
+  },
+  "metadata": {
+    "description": "Anti-slop UI & frontend art-direction skill combining DESIGN.md guardrails, 58 anti-slop rules, and 2K/4K Series-Locked Google Gemini Nano Banana & Gemini 4 visuals.",
+    "version": "1.2.0"
+  },
+  "plugins": [
+    {
+      "name": "ui",
+      "source": "./",
+      "description": "Design, audit, normalize, and build award-level websites and dashboards without AI slop using 2K/4K Nano Banana 2.1/Pro and Gemini 4.",
+      "version": "1.2.0",
+      "author": {
+        "name": "Antonio Cardenas"
+      },
+      "homepage": "https://github.com/AntonioCardenas/ui-nanobanana",
+      "repository": "https://github.com/AntonioCardenas/ui-nanobanana",
+      "license": "MIT",
+      "keywords": [
+        "frontend-design",
+        "ui-design",
+        "anti-ai-slop",
+        "design-system",
+        "nano-banana",
+        "nano-banana-pro",
+        "gemini-4",
+        "claude-code",
+        "cursor",
+        "antigravity"
+      ]
+    }
+  ]
+}

@@ -94,22 +94,37 @@ from google import genai
 client = genai.Client()  # Reads GEMINI_API_KEY from environment
 
 # 1. Load verbatim style anchor from DESIGN.md -> style.md
+import mimetypes
 style_path = Path("generations/refs/brand/style.md")
 style_anchor = style_path.read_text(encoding="utf-8").strip() + "\n\n" if style_path.exists() else ""
 
 output_dir = Path("public/images")
 output_dir.mkdir(parents=True, exist_ok=True)
 
-def save_and_log(interaction, out_path: Path, model_id: str, prompt: str, refs: list[str], params: dict, cost: str):
+def detect_image_mime(p: Path) -> str:
+    header = p.read_bytes()[:12]
+    if header.startswith(b"\x89PNG\r\n\x1a\n"):
+        return "image/png"
+    if header.startswith(b"\xff\xd8\xff"):
+        return "image/jpeg"
+    if header[:4] == b"RIFF" and header[8:12] == b"WEBP":
+        return "image/webp"
+    guessed, _ = mimetypes.guess_type(str(p))
+    if guessed in {"image/png", "image/jpeg", "image/webp", "image/heic", "image/heif"}:
+        return guessed
+    raise ValueError(f"Unsupported image MIME ({guessed}) for {p}")
+
+def save_and_log(interaction, out_path: Path, model_id: str, prompt: str, logged_ref_paths: list[str], params: dict, cost: str):
     if interaction.output_image is None or interaction.output_image.data is None:
         raise RuntimeError(interaction.output_text or "Model returned no image data.")
     out_path.write_bytes(base64.b64decode(interaction.output_image.data))
     assert out_path.exists() and out_path.stat().st_size > 0, f"Failed to write {out_path}"
 
+    # Note: 'reference_images' is strictly a local sidecar audit field; API calls pass image blocks inside 'input'.
     sidecar = {
         "model": model_id,
         "prompt": prompt,
-        "reference_images": refs,
+        "reference_images": logged_ref_paths,
         "reference_set": "brand",
         "response_id": interaction.id,
         "params": params,
@@ -125,7 +140,7 @@ hero_prompt = (
     + "Architectural studio photograph of a monolithic basalt stone espresso bar inside a converted "
     + "1920s concrete tram depot at dawn. Warm directional key light grazing the porous dark volcanic stone "
     + "and brushed brass steam wand on the right two-thirds. Keep the bottom-left 40% in calm, uninterrupted "
-    + "deep slate shadow (#0c1624) as a negative-space safe zone. No text, no watermarks, no human hands."
+    + "deep slate shadow (#0c1624) as a negative-space safe zone, composed for a 16:9 website hero. No text, no watermarks, no human hands."
 )
 hero_params = {"type": "image", "image_size": "4K", "aspect_ratio": "16:9"}
 hero_interaction = client.interactions.create(
@@ -136,11 +151,12 @@ hero_interaction = client.interactions.create(
 hero_path = output_dir / "hero_basalt_bar.png"
 save_and_log(hero_interaction, hero_path, "gemini-3-pro-image", hero_prompt, [], hero_params, "$0.24")
 
-# --- SLOT 2: Section Plate Locked to Hero's Exact Lighting & Palette ---
+# --- SLOT 2: Section Plate Locked to Hero's Exact Lighting & Palette via input Image Part ---
 hero_b64 = base64.b64encode(hero_path.read_bytes()).decode("utf-8")
+hero_mime = detect_image_mime(hero_path)
 sec2_prompt = (
     style_anchor
-    + "Match the exact color grading, film grain, and warm dawn side-lighting of the reference image. "
+    + "Match the exact color grading, film grain, and warm dawn side-lighting of the first image. "
     + "Macro 85mm studio photograph of freshly roasted whole coffee beans resting on a rough dark basalt slab, "
     + "shallow depth of field, rich natural oils catching the same warm sidelight. No text, no hands."
 )
@@ -148,7 +164,7 @@ sec2_params = {"type": "image", "image_size": "2K", "aspect_ratio": "3:4"}
 sec2_interaction = client.interactions.create(
     model="gemini-nano-banana-2.1",
     input=[
-        {"type": "image", "data": hero_b64, "mime_type": "image/png"},
+        {"type": "image", "data": hero_b64, "mime_type": hero_mime},
         {"type": "text", "text": sec2_prompt},
     ],
     response_format=sec2_params,

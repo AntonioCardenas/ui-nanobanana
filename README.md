@@ -1,4 +1,4 @@
-# ui-nanobanana — Taste + Impeccable + Nano Banana (2K/4K OP Edition)
+# ui-nanobanana — Anti-Slop Frontend & UI Design Skill with 4K Nano Banana & Gemini 4 for Claude Code, Cursor & Antigravity
 
 *Read this in other languages: [English](README.md), [Español](README.es.md).*
 
@@ -7,7 +7,9 @@
 [![Last commit](https://img.shields.io/github/last-commit/AntonioCardenas/ui-nanobanana)](https://github.com/AntonioCardenas/ui-nanobanana/commits/main)
 [![Install via skills CLI](https://img.shields.io/badge/install-npx%20skills%20add-brightgreen)](https://github.com/vercel-labs/skills)
 
-> The ultimate anti-slop UI & frontend art-direction skill for AI coding agents (**Antigravity**, **Antigravity CLI**, **Claude Code**, **Cursor**, **Codex**). Combines **Taste Skill**'s gallery-proven art direction and **Impeccable**'s deterministic `DESIGN.md` guardrails + 58 anti-slop rules with an **OP high-resolution visual pipeline** powered by **Nano Banana 2.1**, **Nano Banana Pro**, **Gemini Omni 1.2 Flash**, and the **Gemini 4 suite** (**Gemini 4 Carbon**, **Gemini 4 Argon**, **Gemini 4 Neon**, **Gemini 4 Hydrogen**).
+> **Open-source AI frontend design, UX audit, and art-direction skill (`/ui`)** for **Claude Code**, **Cursor**, **Antigravity**, **Antigravity CLI**, **Codex**, and **OpenCode**. Eliminates generic "AI slop" UI templates by uniting **Taste Skill** gallery composition, **Impeccable** deterministic `DESIGN.md` guardrails (58 anti-slop rules & 21 `/ui` commands), and a **Hero-First Series-Locked 2K/4K visual pipeline** powered by **Nano Banana 2.1**, **Nano Banana Pro**, **Gemini Omni 1.2 Flash**, and **Gemini 4** (`Carbon`, `Argon`, `Neon`, `Hydrogen`).
+>
+> Need standalone media generation outside frontend builds? See the companion skill **[`generate-nanobanana`](https://github.com/AntonioCardenas/generate-nanobanana)**.
 
 [![UI Nano Banana Y2K Campaign Poster](ui_nanobanana_showcase.png)](ui_nanobanana_showcase.png)
 *Flagship cover generated with Nano Banana Pro &amp; Gemini 4 Neon: Y2K Solarpunk-Cyber couture portrait (`#0c1624` slate-navy studio, `#38d399` chlorophyll-emerald and `#f472b6` coral-pink neon reflections, `GEMINI 4 // NEON · ARGON · HYDROGEN`, `TASTE × IMPECCABLE`).*
@@ -68,8 +70,11 @@ git clone https://github.com/AntonioCardenas/ui-nanobanana ~/.claude/skills/ui
 | `/ui init` | Bootstrap `PRODUCT.md`, `DESIGN.md`, and `generations/refs/brand/style.md`. |
 | `/ui document` | Extract existing project tokens and rules into `DESIGN.md` and `style.md`. |
 | `/ui craft [target]` | Full 10-Step build with Batch Nano Banana 2K/4K Media Plan & Series Lock. |
+| `/ui prompt [idea]` | Zero-cost Prompt Architect: outputs an optimized natural-language prompt + `WHY THESE CHOICES` rationale ($0.00 API cost). |
 | `/ui visual-plan [target]` | Plan, quote, and generate a cohesive 2K/4K Nano Banana visual suite for an existing UI. |
-| `/ui edit-asset <file>` | Stateful delta edit (`previous_interaction_id`) or 2K/4K upscale from an asset's `.json` sidecar. |
+| `/ui wireframe-to-comp <sketch>` | Convert a hand-drawn sketch, 2D floor plan, or wireframe into a 2K/4K visual comp / 3D render + frontend code. |
+| `/ui localize-assets <lang>` | One-turn visual localization of in-image `"quoted"` text across languages while preserving layout & lighting. |
+| `/ui edit-asset <file>` | Physics-aware delta edit (`previous_interaction_id`) or 2K/4K upscale from an asset's `.json` sidecar. |
 | `/ui audit [target]` | Diagnostic check against all 58 anti-slop rules (`SLOP-01`–`SLOP-58`) without editing code. |
 | `/ui critique [target]` | 14-pass Awwwards & UX heuristic score + top 3 highest-leverage improvements. |
 | `/ui normalize [target]` | Align drifted colors, spacing, radii, and type sizes back to `DESIGN.md`. |
@@ -87,6 +92,7 @@ references/
   design-contract.md                        PRODUCT.md, DESIGN.md & style.md templates + Angular/React/GSAP patterns
   art-direction-and-copy.md                 Subject Inventory, Competitor Test, 2-Line Copy Math, Composition Matrix
   nanobanana-visual-pipeline.md             Batch Media Plan, Photographer's Briefs, Safe Zones, Series Lock, Omni Video
+  prompt-engineering.md                     4 Golden Rules, 9-Dimension Discovery, 2D-to-3D, Localization & $0 Validator
   anti-slop-58-rules.md                     All 58 deterministic anti-slop rules (SLOP-01 to SLOP-58) & remediations
   commands-playbook.md                      Execution playbooks for all 18 /ui sub-commands
 models/
@@ -99,6 +105,27 @@ models/
   gemini-4-argon.md                         gemini-4-argon (1M context efficient frontier reasoning for SVGs, Three.js, shaders)
   gemini-4-carbon.md                        gemini-4-carbon (1M context maximum reasoning depth for complex 3D/GLSL shaders)
 ```
+
+## Comparison: Why `ui-nanobanana` Beats CSS-Only UI Skills & Default AI Prompts
+
+| Dimension | Default LLM Frontend | CSS-Only Anti-Slop Skill | `ui-nanobanana` (`/ui`) |
+|---|---|---|---|
+| **Layout & Typography** | Left-text/right-image hero, 3-card icon rows, purple gradients | Removes badges/gradients, but leaves thin/empty pages | **58 Anti-Slop Rules + 2-Line Headline Math (`<= 32` chars) + Varied Section Anchors** |
+| **Visual Imagery** | Broken Unsplash URLs or mismatched stock | Public-domain archive search only | **2K/4K Nano Banana Studio Plates with Hero-First Series Lock & Negative-Space Safe Zones** |
+| **Motion & 3D** | Identical fade-up on every block | Basic CSS transitions | **Starting-Frame-Locked Omni 1.2 Video Loops + Gemini 4 Three.js/GLSL Shaders** |
+| **Interactive Proof** | Static marketing slogans | Static sections | **"One Live Thing" interactive domain instrument + `previous_interaction_id` state plates** |
+| **Cost & Schema Safety** | Uncontrolled | No media API | **Single upfront Batch Media Quote + `$0` offline schema & MIME validator** |
+
+## Frequently Asked Questions (FAQ)
+
+### What is the best Claude Code or Cursor skill to stop "AI slop" in frontend UI design?
+`ui-nanobanana` combines **58 deterministic anti-slop detection rules** (`/ui audit`, `/ui polish`) with `DESIGN.md` brand tokens, two-line headline character budgets, and cohesive **2K/4K Nano Banana 2.1 & Pro** studio photography so pages look art-directed rather than AI-generated.
+
+### Does `ui-nanobanana` work with Angular, React, Next.js, Astro, and Tailwind CSS?
+Yes. It is 100% framework-agnostic and respects your existing stack — including **Angular v22 Zoneless + Signals**, **React / Next.js Server Components**, **Astro**, **Vue**, **Svelte**, **Tailwind v4**, **GSAP**, and **Lenis**.
+
+### How does Hero-First Series Lock keep website images visually consistent?
+Instead of generating 6 unrelated images, `ui-nanobanana` compiles your `DESIGN.md` palette into `generations/refs/brand/style.md`, generates the **2K/4K Hero plate first** with a calm negative-space quadrant for UI headline legibility, and passes that approved Hero as a MIME-verified `input` image block into every subsequent section plate and **Gemini Omni 1.2 Flash** starting-frame video loop.
 
 ## Credits & Inspiration
 

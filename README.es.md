@@ -68,8 +68,11 @@ git clone https://github.com/AntonioCardenas/ui-nanobanana ~/.claude/skills/ui
 | `/ui init` | Inicializa `PRODUCT.md`, `DESIGN.md` y `generations/refs/brand/style.md`. |
 | `/ui document` | Extrae los tokens y reglas de un proyecto existente hacia `DESIGN.md` y `style.md`. |
 | `/ui craft [target]` | Ejecuta los 10 pasos completos con Plan de Medios Nano Banana 2K/4K y Series Lock. |
+| `/ui prompt [idea]` | Arquitecto de Prompts sin costo ($0.00): diseña un prompt en lenguaje natural + justificación `WHY THESE CHOICES`. |
 | `/ui visual-plan [target]` | Planifica, cotiza y genera una suite visual cohesiva en 2K/4K para una UI existente. |
-| `/ui edit-asset <file>` | Edición delta con estado (`previous_interaction_id`) o escalado a 2K/4K leyendo el sidecar `.json`. |
+| `/ui wireframe-to-comp <boceto>` | Convierte un boceto a mano, plano 2D o wireframe en una composición 2K/4K o render 3D + código frontend. |
+| `/ui localize-assets <idioma>` | Localización visual en un turno de textos `"entre comillas"` preservando iluminación y tipografía. |
+| `/ui edit-asset <file>` | Edición conversacional consciente de física (`previous_interaction_id`) o escalado a 2K/4K leyendo el sidecar `.json`. | |
 | `/ui audit [target]` | Pase de diagnóstico contra las 58 reglas anti-slop (`SLOP-01`–`SLOP-58`) sin modificar código. |
 | `/ui critique [target]` | Evaluación heurística de 14 pases estilo jurado Awwwards + los 3 cambios de mayor impacto. |
 | `/ui normalize [target]` | Alinea colores, espaciados, radios de borde y tamaños tipográficos desviados con `DESIGN.md`. |
