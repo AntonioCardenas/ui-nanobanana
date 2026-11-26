@@ -218,7 +218,7 @@ video_prompt = (
 video_interaction = client.interactions.create(
     model="gemini-omni-1.2-flash",
     input=[
-        {"type": "image", "data": hero_b64, "mime_type": "image/png"},
+        {"type": "image", "data": hero_b64, "mime_type": hero_mime},
         {"type": "text", "text": video_prompt},
     ],
     response_format={"type": "video", "aspect_ratio": "16:9", "resolution": "720p", "duration": "5s"},
